@@ -9,50 +9,46 @@ public class Move {
         this.steps = steps;
         switch (steps) {
             case 1 -> {
-                this.name = "khal";
-                this.prob = 1;
+                this.name = "One";
+                this.prob = 1.0 / 6;
                 break;
             }
             case 2 -> {
-                this.name = "dua";
-                this.prob = 0.31104;
+                this.name = "Two";
+                this.prob = 1.0 / 6;
                 break;
             }
             case 3 -> {
-                this.name = "three";
-                this.prob = 0.27648;
+                this.name = "Three";
+                this.prob = 1.0 / 6;
                 break;
             }
             case 4 -> {
-                this.name = "four";
-                this.prob = 0.13824;
+                this.name = "Four";
+                this.prob = 1.0 / 6;
+                break;
+            }
+            case 5 -> {
+                this.name = "Five";
+                this.prob = 1.0 / 6;
                 break;
             }
             case 6 -> {
-                this.name = "shaka";
-                this.prob = 0.046656;
+                this.name = "Six";
+                this.prob = 1.0 / 6;
                 break;
             }
-            case 10 -> {
-                this.name = "dest";
-                this.prob = 0.186624;
-                break;
-            }
-            case 12 -> {
-                this.name = "bara";
-                this.prob = 0.004096;
-                break;
-            }
-            case 25 -> {
-                this.name = "bnj";
-                this.prob = 0.036864;
-                break;
-            }
+            default -> throw new IllegalArgumentException("Invalid number of steps");
         }
     }
 
-    public boolean isKhal() {
-        return steps == 1;
+    public boolean isSix() {
+        return steps == 6;
+    }
+
+    public boolean isKill() {
+        ///todo
+        return false;
     }
 
     @Override

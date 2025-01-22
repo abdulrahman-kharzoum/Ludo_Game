@@ -5,6 +5,7 @@ public class Board {
     public static int[] pathComputer = new int[84];
     public static int[] safeCells = new int[8];
     public final static char H = 'h', C = 'c';
+    public boolean additionalThrow = false;
     static {
         //init human path
         pathHuman[0] = 201;
