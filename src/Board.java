@@ -1,8 +1,8 @@
 import java.util.Arrays;
 
 public class Board {
-    public static int[] pathHuman = new int[84];
-    public static int[] pathComputer = new int[84];
+    public static int[] pathHuman = new int[57];
+    public static int[] pathComputer = new int[57];
     public static int[] safeCells = new int[8];
     public final static char H = 'h', C = 'c';
     public boolean additionalThrow = false;
@@ -167,9 +167,9 @@ public class Board {
 
 }
 
-
+///  For Two Players
     /*
-    For Two Players
+
                                 |___________|
                                 | 6   7   8 |
                                 | 21  22  23|
