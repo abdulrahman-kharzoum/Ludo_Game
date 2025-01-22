@@ -16,6 +16,18 @@ public class Structure {
                         arr[i][j] = "  ⬇⬇ ";
                     } else if (j == 7 && i == 15) {
                         arr[i][j] = " ⬆⬆ |";
+                    }else if (j == 1 && i == 7)  {
+                        arr[i][j] = " ❌ |";
+                    }else if (j == 14 && i == 7)  {
+                        arr[i][j] = " ❌ |";
+                    }else if (j == 15 && i == 9)  {
+                        arr[i][j] = " ❌ |";
+                    }else if (j == 2 && i == 7)  {
+                        arr[i][j] = " __ |";
+                    }else if (j == 2 && i == 9)  {
+                        arr[i][j] = " ❌ |";
+                    }else  if (j == 7 && i == 2) {
+                        arr[i][j] = " ❌ |";
                     }
                     // Then check for vertical dividers
                     else if (j == 5 || j == 9) {
