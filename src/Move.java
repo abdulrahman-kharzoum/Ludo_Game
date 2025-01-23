@@ -38,7 +38,7 @@ public class Move {
                 this.prob = 1.0 / 6;
                 break;
             }
-            default -> throw new IllegalArgumentException("Invalid number of steps");
+
         }
     }
 

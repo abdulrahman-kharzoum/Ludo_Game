@@ -53,13 +53,6 @@ public class Structure {
                 }
             }
         }
-// safe
-//        for (int i = 0; i < 8; i++) {
-//            Position pos = new Position(Board.safeCells[i]);
-//            fixPosition(pos); // Now capped at 18
-//            if (pos.x != 9) arr[pos.y][pos.x] = "_><_|";
-//            else arr[pos.y][pos.x] = " _><_";
-//        }
 
         //Add Human pieces
         Map<Integer, String> pieces = new HashMap<>();
@@ -148,15 +141,17 @@ public class Structure {
         return arr;
     }
 
-    //fix the position for Board Print
-    //fix the position for Board Print
-    static void fixPosition(Position p) {
+
+
+    public static void fixPosition(Position p) {
+        // Adjust positions to account for gaps in the board layout
         if (p.y >= 9) p.y += 2;
         else if (p.y >= 6) p.y++;
 
         if (p.x >= 9) p.x += 2;
         else if (p.x >= 6) p.x++;
     }
+
     static void print(Board board) {
 
         String[][] arr = Structure.Board2array(board);
@@ -376,30 +371,26 @@ public class Structure {
     }
 
     public static void main(String[] args) {
-        // Example: Throw the dice up to 3 times (or until no 6 is rolled)
-//        List<Move> moves = throwDice(3);
-//        System.out.println("Dice Throws: " + moves);
+
+        List<Move> moves = throwDice(3);
+        System.out.println("Dice Throws: " + moves);
 
         // Initialize the board
         Board board = new Board();
 
-        // Set up some test positions
-        board.piecesHuman[0] = -1; // Human piece 0 on position 10
-        board.piecesHuman[1] = -1; // Human piece 1 on position 20
-        board.piecesHuman[2] = -1; // Human piece 2 off the board
-        board.piecesHuman[3] = -1; // Human piece 3 on position 30
 
-        board.piecesComputer[0] = -1; // Computer piece 0 on position 15
-        board.piecesComputer[1] = -1; // Computer piece 1 on position 25
-        board.piecesComputer[2] = -1; // Computer piece 2 off the board
-        board.piecesComputer[3] = -1; // Computer piece 3 on position 35
+        board.piecesHuman[0] = 0;
+        board.piecesHuman[1] = 56;
+        board.piecesHuman[2] = 8;
+        board.piecesHuman[3] = 13;
+
+        board.piecesComputer[0] = 56;
+        board.piecesComputer[1] = 0;
+        board.piecesComputer[2] =8;
+        board.piecesComputer[3] = 17;
 
 
-//        // Assign paths for human and computer (example mappings)
-//        for (int i = 0; i < 57; i++) {
-//            Board.pathHuman[i] = i;  // Human path: 0, 1, 2, ..., 56
-//            Board.pathComputer[i] = i + 50;  // Computer path offset by 50
-//        }
+
 
         // Print the board
         print(board);
