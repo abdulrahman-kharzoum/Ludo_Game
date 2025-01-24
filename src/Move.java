@@ -10,22 +10,22 @@ public class Move {
         switch (steps) {
             case 1 -> {
                 this.name = "One";
-                this.prob = 1.0 / 6;
+                this.prob = 1.0 / 6.0;
                 break;
             }
             case 2 -> {
                 this.name = "Two";
-                this.prob = 1.0 / 6;
+                this.prob = 1.0 / 6.0;
                 break;
             }
             case 3 -> {
                 this.name = "Three";
-                this.prob = 1.0 / 6;
+                this.prob = 1.0 / 6.0;
                 break;
             }
             case 4 -> {
                 this.name = "Four";
-                this.prob = 1.0 / 6;
+                this.prob = 1.0 / 6.0;
                 break;
             }
             case 5 -> {
@@ -33,7 +33,7 @@ public class Move {
                 this.prob = 1.0 / 6;
                 break;
             }
-            case 6 -> {
+                case 6 -> {
                 this.name = "Six";
                 this.prob = 1.0 / 6;
                 break;
@@ -43,7 +43,14 @@ public class Move {
     }
 
     public boolean isSix() {
+
         return steps == 6;
+
+    }
+    public boolean isOne() {
+
+        return steps == 1;
+
     }
 
     public boolean isKill() {

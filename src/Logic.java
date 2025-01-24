@@ -5,6 +5,8 @@ import java.util.Scanner;
 public class Logic {
     public static void main(String[] args) {
         Board initialBoard = new Board();
+
+            System.out.println(initialBoard.additionalThrow);
         Node root = new Node(null, initialBoard, 'h');
         Structure.print(initialBoard);
         Node node = root;
@@ -104,12 +106,4 @@ public class Logic {
         return nextNode;
     }
 
-    public static Node computer2Turn(Node node) {
-        List<Move> moves = Structure.throwDice(3);
-        Node nextNode = new MaximizingNode(node, node.board, 'h', moves).getMaxEvaluation(2).key;
-        System.out.println("Umm Zaki have moves:" + moves);
-        Structure.print(nextNode.board);
-        System.out.println("Umm Zaki turn end");
-        return nextNode;
-    }
 }

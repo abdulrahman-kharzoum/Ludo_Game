@@ -28,6 +28,8 @@ public class Structure {
                         arr[i][j] = " ❌ |";
                     }else  if (j == 7 && i == 2) {
                         arr[i][j] = " ❌ |";
+                    }else if (j == 9 && i == 14){
+                        arr[i][j] = " ❌ ";
                     }
                     // Then check for vertical dividers
                     else if (j == 5 || j == 9) {
@@ -200,13 +202,9 @@ public class Structure {
         int[] enemyPieces = (player == Board.C) ? board.piecesHuman : board.piecesComputer;
         int[] playerPath = (player == Board.C) ? Board.pathComputer : Board.pathHuman;
         int[] enemyPath = (player == Board.C) ? Board.pathHuman : Board.pathComputer;
-
         int currentPosition = playerPieces[pieceIndex];
-        int newPosition = currentPosition + move.steps;
-
-        // Update the piece's position
+        int newPosition =(currentPosition == -1 && move.isSix())?0: currentPosition+ move.steps;
         playerPieces[pieceIndex] = newPosition;
-
         // Check if the new position kills any enemy pieces
         int killCount = 0;
         for (int i = 0; i < enemyPieces.length; i++) {
@@ -215,7 +213,6 @@ public class Structure {
                 killCount++;
             }
         }
-
         // If any enemy pieces were killed, allow the player to throw the dice again
         if (killCount > 0) {
             // Only allow one additional throw, regardless of how many pieces were killed
@@ -237,22 +234,15 @@ public class Structure {
         int[] enemyPieces = (player == Board.C) ? board.piecesHuman : board.piecesComputer;
         int[] playerPath = (player == Board.C) ? Board.pathComputer : Board.pathHuman;
         int[] enemyPath = (player == Board.C) ? Board.pathHuman : Board.pathComputer;
-
         int currentPosition = playerPieces[pieceIndex];
         int newPosition = currentPosition + move.steps;
-
-        // If the piece is out of the board and the move is not a "six"
         if (currentPosition < 0 && !move.isSix()) {
             return false;
         }
-
-        // Check if the move is out of bounds
         if (newPosition >= playerPath.length) {
             return false;
         }
-
-        // Check if the new position is blocked by two or more enemy pieces
-        int enemyCount = 0;
+       int enemyCount = 0;
         for (int piece : enemyPieces) {
             if (piece >= 0 && enemyPath[piece] == playerPath[newPosition]) {
                 enemyCount++;
@@ -261,38 +251,32 @@ public class Structure {
                 }
             }
         }
-
-        // Move is valid
+         // Move is valid
         return true;
     }
 
     public static List<Move> throwDice(int count) {
-        if (count <= 0) return new ArrayList<>(); // Base case: stop recursion if count is 0 or less
+        if (count <= 0) return new ArrayList<>();
         List<Move> moves = new ArrayList<>();
         Random random = new Random();
-
-        // Simulate a dice roll (1 to 6)
         int diceResult = random.nextInt(6) + 1;
-
-        // Create a Move object based on the dice result
         Move move = new Move(diceResult);
         moves.add(move);
 
-        // If the result is 6, the player gets another turn (recursive call)
+
         if (diceResult == 6) {
-            moves.addAll(throwDice(count - 1)); // Recursively throw the dice again
+            moves.addAll(throwDice(count - 1));
         }
 
         return moves;
     }
 
     static boolean isFinal(Node node) {
-        //Tested and working
         return isWinner('c', node) || isWinner('h', node);
     }
 
     static boolean isWinner(char player, Node node) {
-        //Tested and working
+
         Board board = node.board;
         int[] pieces = player == 'h' ? board.piecesHuman : board.piecesComputer;
         int[] path = player == 'h' ? Board.pathHuman : Board.pathComputer;
@@ -311,20 +295,20 @@ public class Structure {
         // Steps Moved
         for (int posIndex : board.piecesComputer) {
             if (posIndex == -1) {
-                value -= 10; // Penalty for not being in play
+                value -= 10;
             } else {
-                value += posIndex + 1; // Reward for moving forward
-                if (board.isSafe(posIndex)) value += 10; // Reward for being in a safe position
-                if (isInHomeColumn(posIndex)) value += 100; // Reward for being in the home column
+                value += posIndex + 1;
+                if (board.isSafe(posIndex)) value += 10;
+                if (isInHomeColumn(posIndex)) value += 100;
             }
         }
         for (int posIndex : board.piecesHuman) {
             if (posIndex == -1) {
-                value += 10; // Penalty for the human player not being in play
+                value += 10;
             } else {
-                value -= posIndex + 1; // Penalty for the human player moving forward
-                if (board.isSafe(posIndex)) value -= 10; // Penalty for the human player being safe
-                if (isInHomeColumn(posIndex)) value -= 100; // Penalty for the human player being in the home column
+                value -= posIndex + 1;
+                if (board.isSafe(posIndex)) value -= 10;
+                if (isInHomeColumn(posIndex)) value -= 100;
             }
         }
 
@@ -333,9 +317,9 @@ public class Structure {
             for (int posIndexH : board.piecesHuman) {
                 if (posIndexC == -1 || posIndexH == -1) continue;
                 int diff = posIndexH - posIndexC;
-                if (diff == 1 || diff == 2 || diff == 3 || diff == 4 || diff == 6 || diff == 10 || diff == 11 || diff == 12 || diff == 25 || diff == 26)
+                if (diff == 1 || diff == 2 || diff == 3 || diff == 4 || diff == 6 || diff == 7 || diff == 8 || diff == 9 ||diff == 10 || diff == 11 ||diff == 12)
                     value += 15; // Reward for being ahead
-                else if (diff == -1 || diff == -2 || diff == -3 || diff == -4 || diff == -6 || diff == -10 || diff == -11 || diff == -12 || diff == -25 || diff == -26)
+                else if (diff == -1 || diff == -2 || diff == -3 || diff == -4 || diff == -6 || diff == -7 || diff == -8 || diff == -9 || diff == -10 || diff == -11 || diff == -12)
                     value -= 15; // Penalty for being behind
             }
         }
@@ -348,17 +332,19 @@ public class Structure {
                 }
             }
         }
-
-        // Penalty for Blocking Own Pieces
-        for (int i = 0; i < board.piecesComputer.length; i++) {
-            for (int j = i + 1; j < board.piecesComputer.length; j++) {
-                if (board.piecesComputer[i] != -1 && board.piecesComputer[i] == board.piecesComputer[j]) {
-                    value -= 20; // Penalty for blocking own pieces
+        int wall = 0;
+        for (int posIndexC : board.piecesComputer) {
+            for (int posIndexC1 : board.piecesComputer) {
+                if(posIndexC1== posIndexC){
+                    wall++;
                 }
             }
         }
+        if (wall>0){
+            value += 50;  // making a wall
+        }
 
-        // Adjust for Player Perspective
+    // Adjust for Player Perspective
         if (player == 'h') value = -value;
 
         return value;
@@ -366,8 +352,8 @@ public class Structure {
 
     // Helper method to check if a piece is in the home column
     static boolean isInHomeColumn(int posIndex) {
-        // Implement logic to check if the position is in the home column
-        return posIndex >= 80 && posIndex <= 83; // Example: Home column is positions 80-83
+        return posIndex >= 49 && posIndex <= 56;
+
     }
 
     public static void main(String[] args) {

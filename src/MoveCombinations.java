@@ -6,8 +6,8 @@ public class MoveCombinations {
     static HashMap<String, Pair<List<Move>, Double>> allMoves = new HashMap<>();
 
     static {
-        int[] numbers = {2, 3, 4, 0, 1, 5, 6};
-        generateAllMovesCombinations(new ArrayList<>(), numbers, false, 5);
+        int[] numbers = {1, 2, 3, 4, 5, 6};
+        generateAllMovesCombinations(new ArrayList<>(), numbers, false, 3);
     }
 
     static void generateAllMovesCombinations(List<Integer> current, int[] numbers, boolean finished, int count) {

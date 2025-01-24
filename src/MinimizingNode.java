@@ -33,7 +33,7 @@ public class MinimizingNode extends Node {
                 List<Move> copyMove = new ArrayList<>(moves);
                 for (int k = 0; k < moves.size(); k++) {
                     for (int i = 0; i < copyMove.size(); i++) {
-                        if (copyMove.get(i).isSix() && copyBoard.piecesComputer[j] == 82 && Structure.canMove(copyBoard, player, j, copyMove.get(i))) {
+                        if (copyMove.get(i).isOne() && copyBoard.piecesComputer[j] == 55 && Structure.canMove(copyBoard, player, j, copyMove.get(i))) {
                             Structure.applyMove(copyBoard, j, copyMove.get(i), player);
                             copyMove.clear();
                             break;
